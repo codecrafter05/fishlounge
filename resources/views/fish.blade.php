@@ -9,24 +9,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <div class="loader-logo">
+        <img src="{{ asset('images/logo2.png') }}" alt="Fish Lounge" width="300" height="300" decoding="async">
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero-section">
+    <div class="hero-content">
+      <img src="{{ asset('images/logo3.png') }}" alt="Fish Lounge" class="hero-logo" width="600" height="600" decoding="async">
+    </div>
+  </section>
+
   <div class="page">
-
-
     
-  <header class="header">
-  <div class="brand">
-    <img class="brand__mark" src="{{ asset('images/logo1.png') }}" alt="Fish Lounge">
-  </div>
+    <header class="header">
+      <div class="brand">
+        <img class="brand__mark" src="{{ asset('images/logo1.png') }}" alt="Fish Lounge">
+      </div>
 
-  <!-- Language Switch under the logo -->
-  <div class="lang-switch">
-    <button class="is-active" data-lang="en">English</button>
-    <span>|</span>
-    <button data-lang="ar">العربية</button>
-  </div>
-</header>
-
-
+      <!-- Language Switch under the logo -->
+      <div class="lang-switch">
+        <button class="is-active" data-lang="en">English</button>
+        <span>|</span>
+        <button data-lang="ar">العربية</button>
+      </div>
+    </header>
 
     <!-- Categories (keep this pattern) -->
     <section class="stories">
@@ -64,9 +76,6 @@
     <!-- Products -->
     <main class="menu list" id="products"></main>
 
-    <footer class="footer">
-      <p>© <span id="year"></span> Fish Lounge</p>
-    </footer>
   </div>
 
 <script>
@@ -176,13 +185,10 @@
   };
 
   // ------- Helpers -------
-  const elYear = document.getElementById('year');
   const elTrack = document.getElementById('storiesTrack');
   const elProducts = document.getElementById('products');
   const elSubcats = document.getElementById('subcats');
   const elTitle = document.getElementById('sectionTitle');
-
-  elYear.textContent = new Date().getFullYear();
   document.querySelector('.stories__nav.left')
     .addEventListener('click', () => elTrack.scrollBy({ left: -240, behavior: 'smooth' }));
   document.querySelector('.stories__nav.right')
@@ -243,6 +249,38 @@
 
   // Init with first active category
   activateCategory('pizza');
+
+  // Loader Animation
+  window.addEventListener('load', function() {
+    const loader = document.getElementById('loader');
+    const heroSection = document.getElementById('hero-section');
+    const page = document.querySelector('.page');
+    
+    // Hide loader after 2 seconds
+    setTimeout(() => {
+      loader.classList.add('hidden');
+      
+      // Show hero section
+      setTimeout(() => {
+        heroSection.classList.add('visible');
+        
+        // Hide hero section and show main page after 3 seconds
+        setTimeout(() => {
+          heroSection.classList.add('hidden');
+          page.style.opacity = '1';
+          page.style.transform = 'translateY(0)';
+        }, 3000);
+      }, 500);
+    }, 2000);
+  });
+
+  // Set initial page styles
+  document.addEventListener('DOMContentLoaded', function() {
+    const page = document.querySelector('.page');
+    page.style.opacity = '0';
+    page.style.transform = 'translateY(50px)';
+    page.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+  });
 </script>
 </body>
 </html>
