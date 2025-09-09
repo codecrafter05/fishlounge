@@ -7,6 +7,10 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/fish', function () {
+    return view('fish');
+});
+
 // Public menu API
 Route::get('/api/menu', [MenuController::class, 'menu']);
 

@@ -3,7 +3,50 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fish Lounge – Menu</title>
+  <!-- Primary Meta Tags -->
+  <title>فيش لاونج | Fish Lounge </title>
+  <link rel="canonical" href="{{ url()->current() }}"/>
+  <meta name="title" content="فيش لاونج | Fish Lounge – أفضل المأكولات البحرية في مجمّع الأفنيوز البحرين">
+  <meta name="description" content="تذوّق أشهى المأكولات البحرية الطازجة في فيش لاونج – مجمّع الأفنيوز البحرين. أسماك مشوية، روبيان، سلطات بحرية، سوب بحري، وأطباق بلاتر مشاركة. أجواء عصرية مطلة على البحر. | Enjoy fresh seafood at Fish Lounge – Avenues Mall Bahrain: grilled fish, shrimp, seafood salads & soups, shared platters, and a modern seaside vibe.">
+  <meta name="keywords" content="فيش لاونج, مطعم بحري, مأكولات بحرية, أسماك, روبيان, سلطعون, بلاتر بحري, مجمّع الأفنيوز, الأفنيوز البحرين, المنامة, مطاعم البحرين, Fish Lounge, seafood restaurant, grilled fish, shrimp, crab, seafood platter, Avenues Mall Bahrain, Manama restaurants">
+  <meta name="author" content="Fish Lounge | فيش لاونج">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="Arabic, English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="restaurant">
+  <meta property="og:url" content="{{ url()->current() }}">
+  <meta property="og:title" content="فيش لاونج | Fish Lounge – أفضل المأكولات البحرية في مجمّع الأفنيوز البحرين">
+  <meta property="og:description" content="مأكولات بحرية طازجة وأجواء عصرية مطلة على البحر في مجمّع الأفنيوز البحرين. أسماك مشوية، روبيان، بلاتر مشاركة والمزيد. | Fresh seafood & modern seaside vibes at Avenues Mall Bahrain.">
+  <meta property="og:image" content="{{ asset('images/fishlounge-og.jpg') }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Fish Lounge – طاولة مأكولات بحرية متنوعة">
+  <meta property="og:site_name" content="Fish Lounge | فيش لاونج">
+  <meta property="og:locale" content="ar_BH">
+  <meta property="og:locale:alternate" content="en_US">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{{ url()->current() }}">
+  <meta name="twitter:title" content="فيش لاونج | Fish Lounge – أفضل المأكولات البحرية في مجمّع الأفنيوز البحرين">
+  <meta name="twitter:description" content="استمتع بمأكولات بحرية طازجة وأجواء عصرية مطلة على البحر في مجمّع الأفنيوز البحرين. | Fresh seafood & modern vibes at Avenues Mall Bahrain.">
+  <meta name="twitter:image" content="{{ asset('images/fishlounge-og.jpg') }}">
+
+  <!-- Additional Meta Tags -->
+  <meta name="theme-color" content="#b4cbdb" />
+  <meta name="msapplication-TileColor" content="#b4cbdb" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="فيش لاونج | Fish Lounge" />
+  <meta name="application-name" content="فيش لاونج | Fish Lounge" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ url()->current() }}" />
+  
+  <!-- Favicon and Icons -->
+  <link rel="icon" type="image/png" href="{{ asset('images/logo2.png') }}" />
+  <link rel="manifest" href="{{ asset('manifest.webmanifest') }}" />
   <link rel="stylesheet" href="{{ asset('css/fish.css') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -78,111 +121,53 @@
 
   </div>
 
+  <!-- Product Modal -->
+  <div class="product-modal" id="product-modal">
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close" aria-label="إغلاق | Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="modal-body">
+        <div class="modal-image-container">
+          <img id="modal-product-image" src="" alt="" class="modal-product-image">
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script>
-  // ------- Data model (Category -> Subcategory -> Products) -------
-  const DATA = {
-    pizza: {
-      title: "Pizza",
-      subcats: {
-        italian: {
-          label: "Italian",
-          items: [
-            {
-              name: "Margherita",
-              desc: "Tomato sauce, mozzarella, basil",
-              img: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?q=80&w=800&auto=format&fit=crop",
-              price: "BD 5.100"
-            },
-            {
-              name: "Diavola",
-              desc: "Tomato, mozzarella, spicy salami",
-              img: "https://images.unsplash.com/photo-1541599188778-cdc73298e8f8?q=80&w=800&auto=format&fit=crop",
-              price: "BD 6.100"
-            }
-          ]
-        },
-        levantine: {
-          label: "Levantine",
-          items: [
-            {
-              name: "Zaatar & Cheese",
-              desc: "Zaatar blend, akkawi cheese, olive oil",
-              img: "https://images.unsplash.com/photo-1548365328-9f547fb0953a?q=80&w=800&auto=format&fit=crop",
-              price: "BD 5.600"
-            },
-            {
-              name: "Shawarma Pizza",
-              desc: "Chicken shawarma slices, garlic sauce, pickles",
-              img: "https://images.unsplash.com/photo-1601050690597-9d5a1e1a0f2e?q=80&w=800&auto=format&fit=crop",
-              price: "BD 6.600"
-            }
-          ]
-        }
-      }
-    },
+  // ------- Dynamic data from backend -------
+  let menuData = null;
+  let currentLang = 'en';
 
-    pasta: {
-      title: "Pasta",
-      subcats: {
-        creamy: {
-          label: "Creamy",
-          items: [
-            {
-              name: "Fettuccine Alfredo",
-              desc: "Cream sauce, parmesan, parsley",
-              img: "https://images.unsplash.com/photo-1520207588543-6f87a6c06ba9?q=80&w=800&auto=format&fit=crop",
-              price: "BD 4.800"
-            }
-          ]
-        },
-        tomato: {
-          label: "Tomato-Based",
-          items: [
-            {
-              name: "Arrabbiata",
-              desc: "Spicy tomato sauce, garlic, chili",
-              img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?q=80&w=800&auto=format&fit=crop",
-              price: "BD 4.600"
-            }
-          ]
-        }
-      }
-    },
-
-    salad: {
-      title: "Salad",
-      subcats: {
-        fresh: {
-          label: "Fresh",
-          items: [
-            {
-              name: "Mediterranean Salad",
-              desc: "Cucumber, tomato, olives, feta, oregano",
-              img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=800&auto=format&fit=crop",
-              price: "BD 3.200"
-            }
-          ]
-        }
-      }
-    },
-
-    drinks: {
-      title: "Drinks",
-      subcats: {
-        cold: {
-          label: "Cold",
-          items: [
-            {
-              name: "Lemon Mint",
-              desc: "Fresh lemon, mint, crushed ice",
-              img: "https://images.unsplash.com/photo-1541976076758-347942db1970?q=80&w=800&auto=format&fit=crop",
-              price: "BD 1.800"
-            }
-          ]
-        }
-      }
+  // Load menu data from API
+  async function loadMenuData() {
+    try {
+      const response = await fetch('/api/menu');
+      menuData = await response.json();
+      initializeMenu();
+    } catch (error) {
+      console.error('Error loading menu data:', error);
     }
-  };
+  }
+
+  // Initialize menu with loaded data
+  function initializeMenu() {
+    if (!menuData) return;
+    
+    // Render categories
+    renderCategories();
+    
+    // Set first category as active
+    const firstCategory = menuData.categories[0];
+    if (firstCategory) {
+      activateCategory(firstCategory.slug);
+    }
+  }
 
   // ------- Helpers -------
   const elTrack = document.getElementById('storiesTrack');
@@ -194,40 +179,97 @@
   document.querySelector('.stories__nav.right')
     .addEventListener('click', () => elTrack.scrollBy({ left: 240, behavior: 'smooth' }));
 
+  function renderCategories() {
+    if (!menuData) return;
+    
+    elTrack.innerHTML = '';
+    
+    menuData.categories.forEach((category, index) => {
+      const story = document.createElement('a');
+      story.href = '#';
+      story.className = 'story' + (index === 0 ? ' is-active' : '');
+      story.dataset.category = category.slug;
+      
+      const img = document.createElement('img');
+      img.src = category.icon || 'https://images.unsplash.com/photo-1541745537413-b804d9049a36?q=80&w=200&auto=format&fit=crop';
+      img.alt = category.label[currentLang];
+      
+      const span = document.createElement('span');
+      span.textContent = category.label[currentLang];
+      
+      story.appendChild(img);
+      story.appendChild(span);
+      
+      story.addEventListener('click', (e) => {
+        e.preventDefault();
+        activateCategory(category.slug);
+      });
+      
+      elTrack.appendChild(story);
+    });
+  }
+
   function renderSubcats(categoryKey) {
-    const subcats = DATA[categoryKey].subcats;
+    if (!menuData) return;
+    
+    const category = menuData.categories.find(cat => cat.slug === categoryKey);
+    if (!category) return;
+    
     elSubcats.innerHTML = '';
 
-    const keys = Object.keys(subcats);
-    keys.forEach((key, idx) => {
+    category.subcategories.forEach((subcat, idx) => {
       const btn = document.createElement('button');
       btn.className = 'subcat-pill' + (idx === 0 ? ' is-active' : '');
-      btn.dataset.subcat = key;
-      btn.textContent = subcats[key].label;
+      btn.dataset.subcat = subcat.slug;
+      btn.textContent = subcat.label[currentLang];
       btn.addEventListener('click', () => {
         document.querySelectorAll('.subcat-pill').forEach(b => b.classList.remove('is-active'));
         btn.classList.add('is-active');
-        renderProducts(categoryKey, key);
+        renderProducts(categoryKey, subcat.slug);
       });
       elSubcats.appendChild(btn);
     });
 
     // render first subcat by default
-    if (keys.length) renderProducts(categoryKey, keys[0]);
+    if (category.subcategories.length) {
+      renderProducts(categoryKey, category.subcategories[0].slug);
+    }
   }
 
   function renderProducts(categoryKey, subcatKey) {
-    const items = DATA[categoryKey].subcats[subcatKey].items;
+    if (!menuData) return;
+    
+    // Filter products by category and subcategory
+    const items = menuData.products.filter(product => 
+      product.category === categoryKey && product.subcategory === subcatKey
+    );
+    
     elProducts.innerHTML = items.map(item => `
-      <article class="item">
-        <img class="item__img" src="${item.img}" alt="${item.name}">
+      <article class="item" onclick="openModal('${item.image || 'https://images.unsplash.com/photo-1541745537413-b804d9049a36?q=80&w=800&auto=format&fit=crop'}', '${item.name[currentLang]}')">
+        <img class="item__img" src="${item.image || 'https://images.unsplash.com/photo-1541745537413-b804d9049a36?q=80&w=800&auto=format&fit=crop'}" alt="${item.name[currentLang]}">
         <div class="item__body">
-          <h4 class="item__title">${item.name}</h4>
-          <p class="item__desc">${item.desc}</p>
+          <h4 class="item__title">${item.name[currentLang]}</h4>
         </div>
-        <div class="item__price"><span class="price">${item.price}</span></div>
+        <div class="item__price"><span class="price">${formatPrice(item.price, item.currency)}</span></div>
       </article>
     `).join('');
+  }
+
+  // Price formatter
+  function formatPrice(price, currency = 'BHD') {
+    const numValue = parseFloat(price);
+    let decimalPlaces = 2;
+    
+    if (numValue < 10) {
+      decimalPlaces = 3;
+    }
+    
+    return new Intl.NumberFormat('en-BH', {
+      style: 'currency',
+      currency: currency,
+      minimumFractionDigits: decimalPlaces,
+      maximumFractionDigits: decimalPlaces
+    }).format(numValue);
   }
 
   function activateCategory(categoryKey) {
@@ -235,20 +277,62 @@
     const active = document.querySelector(`.story[data-category="${categoryKey}"]`);
     if (active) active.classList.add('is-active');
 
-    elTitle.textContent = DATA[categoryKey].title;
-    renderSubcats(categoryKey);
+    const category = menuData.categories.find(cat => cat.slug === categoryKey);
+    if (category) {
+      elTitle.textContent = category.label[currentLang];
+      renderSubcats(categoryKey);
+    }
   }
 
-  // Category click handlers
-  document.querySelectorAll('.story').forEach(s => {
-    s.addEventListener('click', e => {
-      e.preventDefault();
-      activateCategory(s.dataset.category);
+  // Language switch functionality
+  document.querySelectorAll('.lang-switch button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      currentLang = btn.dataset.lang;
+      
+      // Re-render everything with new language
+      if (menuData) {
+        renderCategories();
+        const activeCategory = document.querySelector('.story.is-active');
+        if (activeCategory) {
+          activateCategory(activeCategory.dataset.category);
+        }
+      }
     });
   });
 
-  // Init with first active category
-  activateCategory('pizza');
+  // Load menu data when page loads
+  loadMenuData();
+
+  // Modal functionality
+  const modal = document.getElementById('product-modal');
+  const modalImage = document.getElementById('modal-product-image');
+  const modalClose = document.getElementById('modal-close');
+  const modalOverlay = document.getElementById('modal-overlay');
+
+  function openModal(imageSrc, imageAlt) {
+    modalImage.src = imageSrc;
+    modalImage.alt = imageAlt;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+
+  // Event listeners for modal
+  modalClose.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', closeModal);
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
 
   // Loader Animation
   window.addEventListener('load', function() {
