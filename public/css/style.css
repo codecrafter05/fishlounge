@@ -291,57 +291,27 @@
     border-color: transparent;
   }
   
-  .categories {
+  /* Category (Stories) Section */
+  .stories {
+    position: relative;
     display: flex;
-    gap: 1.5rem;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    padding: 0;
-    width: 100%;
+    align-items: center;
+    margin: 14px 0 4px;
+  }
+
+  .stories__track {
+    display: flex;
+    gap: 18px;
     overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    -ms-overflow-style: none;
-    min-height: 140px;
-    scroll-snap-type: x mandatory;
+    padding: 8px 42px;
+    scroll-behavior: smooth;
   }
-  
-  .categories::-webkit-scrollbar {
+
+  .stories__track::-webkit-scrollbar {
     display: none;
   }
   
-  /* Scroll indicators */
-  .categories::before,
-  .categories::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 30px;
-    pointer-events: none;
-    z-index: 1;
-  }
-  
-  .categories::before {
-    left: 0;
-    background: linear-gradient(to right, rgba(249, 245, 240, 0.9) 0%, transparent 100%);
-  }
-  
-  .categories::after {
-    right: 0;
-    background: linear-gradient(to left, rgba(249, 245, 240, 0.9) 0%, transparent 100%);
-  }
-  
-  /* Scroll arrows - removed */
-  .categories::before {
-    display: none;
-  }
-  
-  .categories::after {
-    display: none;
-  }
   /* .category {
     display: flex;
     flex-direction: column;
@@ -456,104 +426,78 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   } */
   
-  /* code above is the old category style, below is the new one */
-  :root{
-    /* أكبر من قبل على الجوال - تم تكبير الحجم بشكل كبير جداً */
-    --cat-img: clamp(220px, 55vw, 300px);
-  }
   
-  /* iPhone SE / شاشات ≤ 360px */
-  @media (max-width: 360px){
-    :root{ --cat-img: clamp(200px, 55vw, 250px); }
-  }
-  
-  /* iPhone 6/7/8/X/11 Pro (≈ 375px) */
-  @media (min-width: 361px) and (max-width: 389px){
-    :root{ --cat-img: clamp(210px, 53vw, 260px); }
-  }
-  
-  /* iPhone 12/13/14/15 (≈ 390px) */
-  @media (min-width: 390px) and (max-width: 413px){
-    :root{ --cat-img: clamp(220px, 51vw, 270px); }
-  }
-  
-  /* iPhone Plus & 14/15 Plus (414–428px) */
-  @media (min-width: 414px) and (max-width: 428px){
-    :root{ --cat-img: clamp(230px, 49vw, 280px); }
-  }
-  
-  /* iPhone Pro Max (≈ 430px) */
-  @media (min-width: 429px) and (max-width: 430px){
-    :root{ --cat-img: clamp(235px, 47vw, 285px); }
-  }
-  
-  /* تابلت */
-  @media (min-width: 600px){
-    :root{ --cat-img: clamp(180px, 30vw, 230px); }
-  }
-  
-  /* لابتوب وما فوق */
-  @media (min-width: 1024px){
-    :root{ --cat-img: clamp(170px, 20vw, 210px); }
-  }
-  
-  /* العنصر العام – بدون بوكس */
   .category {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    text-align: center;
+    gap: 8px;
+    text-decoration: none;
     color: var(--coffee);
+    flex: 0 0 auto;
     cursor: pointer;
     background: transparent;
-    box-shadow: none;
     border: none;
     padding: 0;
-    margin: 0.5rem 0;
-    width: auto;
-    height: auto;
+    margin: 0;
     appearance: none;
-    scroll-snap-align: center;
     position: relative;
     transition: transform .2s ease;
   }
   
-  /* ألغينا أي مؤثر يغطي كل العنصر */
-  .category::before { display: none; }
   
-  /* لا نبي ظل/بوكس على العنصر نفسه */
-  .category:hover,
-  .category.active {
-    box-shadow: none;
-    background: transparent;
-    border-color: transparent;
-    transform: none; /* التكبير بيصير على الصورة فقط */
+  .category img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid transparent;
+    outline: 2px solid var(--creme);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    transition: border-color 0.25s ease, transform 0.25s ease;
   }
   
-  /* الصورة — دائرة بدون خلفية أو حشوة */
-  .category img{
-    width:var(--cat-img);
-    height:var(--cat-img);
-    border-radius:50%;
-    object-fit:cover;       /* تملأ الدائرة بدون فراغات */
-    background:transparent; /* شلنا الأبيض */
-    padding:0;              /* شلنا الحلقة البيضاء */
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,.15)); /* ظل أقوى للوضوح */
-    transition:transform .25s ease, filter .25s ease, outline-color .2s ease;
-    position:relative; z-index:1; margin-bottom:.4rem;
-    border: none; /* إزالة الحدود البيضاء */
+  .category span {
+    font-size: 12px;
+    opacity: 0.85;
   }
-  
-  .category:hover img{ transform: scale(1.06); filter: drop-shadow(0 6px 18px rgba(0,0,0,.18)); }
-  .category:focus-visible img{ outline: 3px solid var(--cramil); outline-offset: 4px; }
-  
-  /* فوكس/مفعّل: حلقة خارجية فقط بدون خلفية */
-  .category:focus-visible img,
-  .category.active img{
-    outline:3px solid var(--cramil);
-    outline-offset:4px;
+
+  .category:hover img {
+    transform: scale(1.05);
+  }
+
+  .category.active img {
+    border-color: var(--cramil);
+  }
+
+  .stories__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--creme);
+    background: white;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    opacity: 0.8;
+    font-size: 20px;
+    line-height: 0;
+    user-select: none;
+  }
+
+  .stories__nav.left {
+    left: 4px;
+  }
+
+  .stories__nav.right {
+    right: 4px;
+  }
+
+  .stories__nav:hover {
+    opacity: 1;
   }
   
   /* Product Grid */
@@ -890,8 +834,8 @@
     }
     
     .header-logo {
-      width: 150px;
-      height: 75px;
+      width: 700px;
+      height: 700px;
     }
     
     .categories {

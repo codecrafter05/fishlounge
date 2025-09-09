@@ -85,7 +85,11 @@
       <div class="menu-header">
         <div class="header-content">
           <div class="header-right">
-            <nav class="categories" id="categories" aria-label="فئات القائمة | Menu Categories" role="tablist"></nav>
+            <div class="stories">
+              <button class="stories__nav left" aria-label="Scroll left">‹</button>
+              <nav class="stories__track" id="categories" aria-label="فئات القائمة | Menu Categories" role="tablist"></nav>
+              <button class="stories__nav right" aria-label="Scroll right">›</button>
+            </div>
           </div>
         </div>
       </div>
