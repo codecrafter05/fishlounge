@@ -245,8 +245,8 @@
     );
     
     elProducts.innerHTML = items.map(item => `
-      <article class="item" onclick="openModal('${item.image || 'https://images.unsplash.com/photo-1541745537413-b804d9049a36?q=80&w=800&auto=format&fit=crop'}', '${item.name[currentLang]}')">
-        <img class="item__img" src="${item.image || 'https://images.unsplash.com/photo-1541745537413-b804d9049a36?q=80&w=800&auto=format&fit=crop'}" alt="${item.name[currentLang]}">
+      <article class="item" onclick="openModal('${item.image || '{{ asset('images/fishimage.png') }}'}', '${item.name[currentLang]}')">
+        <img class="item__img" src="${item.image || '{{ asset('images/fishimage.png') }}'}" alt="${item.name[currentLang]}">
         <div class="item__body">
           <h4 class="item__title">${item.name[currentLang]}</h4>
         </div>
@@ -258,6 +258,12 @@
   // Price formatter
   function formatPrice(price, currency = 'BHD') {
     const numValue = parseFloat(price);
+    
+    // Handle AS PER WEIGHT pricing (stored as -1)
+    if (numValue === -1) {
+      return currentLang === 'ar' ? 'حسب الوزن' : 'AS PER WEIGHT';
+    }
+    
     let decimalPlaces = 2;
     
     if (numValue < 10) {
@@ -291,12 +297,23 @@
       btn.classList.add('is-active');
       currentLang = btn.dataset.lang;
       
-      // Re-render everything with new language
+      // Re-render everything with new language while maintaining current category
       if (menuData) {
-        renderCategories();
+        // Store the currently active category before re-rendering
         const activeCategory = document.querySelector('.story.is-active');
-        if (activeCategory) {
-          activateCategory(activeCategory.dataset.category);
+        const currentCategorySlug = activeCategory ? activeCategory.dataset.category : null;
+        
+        renderCategories();
+        
+        // Reactivate the same category after re-rendering
+        if (currentCategorySlug) {
+          activateCategory(currentCategorySlug);
+        } else {
+          // Fallback to first category if no active category found
+          const firstCategory = menuData.categories[0];
+          if (firstCategory) {
+            activateCategory(firstCategory.slug);
+          }
         }
       }
     });
