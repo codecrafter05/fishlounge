@@ -381,5 +381,23 @@ document.addEventListener('DOMContentLoaded', function() {
     initMenu().then(() => {
       setTimeout(() => { setupTouchSupport(); }, 4000);
       setupModalEvents(); // Setup modal functionality
+      setupStoriesNavigation(); // Setup stories navigation
     });
   });
+
+  // Stories navigation functionality
+  function setupStoriesNavigation() {
+    const track = document.getElementById('categories');
+    const leftBtn = document.querySelector('.stories__nav.left');
+    const rightBtn = document.querySelector('.stories__nav.right');
+    
+    if (track && leftBtn && rightBtn) {
+      leftBtn.addEventListener('click', () => {
+        track.scrollBy({ left: -240, behavior: 'smooth' });
+      });
+      
+      rightBtn.addEventListener('click', () => {
+        track.scrollBy({ left: 240, behavior: 'smooth' });
+      });
+    }
+  }
