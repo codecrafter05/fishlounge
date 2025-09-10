@@ -110,6 +110,36 @@ body {
 .menu { display: grid; gap: 16px; margin-top: 10px; }
 .menu.list { grid-template-columns: 1fr; }
 
+/* Category sections for "All" view */
+.category-section {
+  margin-bottom: 32px;
+}
+
+.category-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 16px 0;
+  padding: 12px 0 8px 0;
+  border-bottom: 2px solid var(--cramil);
+  position: relative;
+}
+
+.category-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--brand);
+}
+
+.category-products {
+  display: grid;
+  gap: 16px;
+}
+
 .item {
   display: grid;
   grid-template-columns: 120px 1fr auto;
