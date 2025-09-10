@@ -162,11 +162,8 @@
     // Render categories
     renderCategories();
     
-    // Set first category as active
-    const firstCategory = menuData.categories[0];
-    if (firstCategory) {
-      activateCategory(firstCategory.slug);
-    }
+    // Set "All" category as active by default
+    activateCategory('all');
   }
 
   // ------- Helpers -------
@@ -184,10 +181,34 @@
     
     elTrack.innerHTML = '';
     
+    // Add "All" category first
+    const allStory = document.createElement('a');
+    allStory.href = '#';
+    allStory.className = 'story is-active';
+    allStory.dataset.category = 'all';
+    
+    const allImg = document.createElement('img');
+    allImg.src = '{{ asset("images/all.jpg") }}';
+    allImg.alt = currentLang === 'ar' ? 'الكل' : 'All';
+    
+    const allSpan = document.createElement('span');
+    allSpan.textContent = currentLang === 'ar' ? 'الكل' : 'All';
+    
+    allStory.appendChild(allImg);
+    allStory.appendChild(allSpan);
+    
+    allStory.addEventListener('click', (e) => {
+      e.preventDefault();
+      activateCategory('all');
+    });
+    
+    elTrack.appendChild(allStory);
+    
+    // Add other categories
     menuData.categories.forEach((category, index) => {
       const story = document.createElement('a');
       story.href = '#';
-      story.className = 'story' + (index === 0 ? ' is-active' : '');
+      story.className = 'story';
       story.dataset.category = category.slug;
       
       const img = document.createElement('img');
@@ -212,6 +233,13 @@
   function renderSubcats(categoryKey) {
     if (!menuData) return;
     
+    // Hide subcategories for "All" category
+    if (categoryKey === 'all') {
+      elSubcats.innerHTML = '';
+      renderAllProducts();
+      return;
+    }
+    
     const category = menuData.categories.find(cat => cat.slug === categoryKey);
     if (!category) return;
     
@@ -234,6 +262,48 @@
     if (category.subcategories.length) {
       renderProducts(categoryKey, category.subcategories[0].slug);
     }
+  }
+
+  function renderAllProducts() {
+    if (!menuData) return;
+    
+    let html = '';
+    
+    // Group products by category
+    menuData.categories.forEach(category => {
+      const categoryProducts = menuData.products.filter(product => 
+        product.category === category.slug
+      );
+      
+      if (categoryProducts.length > 0) {
+        // Add category header
+        html += `
+          <div class="category-section">
+            <h3 class="category-title">${category.label[currentLang]}</h3>
+            <div class="category-products">
+        `;
+        
+        // Add products for this category
+        categoryProducts.forEach(item => {
+          html += `
+            <article class="item" onclick="openModal('${item.image || 'https://images.unsplash.com/photo-1541745537413-b804d9049a36?q=80&w=800&auto=format&fit=crop'}', '${item.name[currentLang]}')">
+              <img class="item__img" src="${item.image || 'https://images.unsplash.com/photo-1541745537413-b804d9049a36?q=80&w=800&auto=format&fit=crop'}" alt="${item.name[currentLang]}">
+              <div class="item__body">
+                <h4 class="item__title">${item.name[currentLang]}</h4>
+              </div>
+              <div class="item__price"><span class="price">${formatPrice(item.price, item.currency)}</span></div>
+            </article>
+          `;
+        });
+        
+        html += `
+            </div>
+          </div>
+        `;
+      }
+    });
+    
+    elProducts.innerHTML = html;
   }
 
   function renderProducts(categoryKey, subcatKey) {
@@ -283,10 +353,15 @@
     const active = document.querySelector(`.story[data-category="${categoryKey}"]`);
     if (active) active.classList.add('is-active');
 
-    const category = menuData.categories.find(cat => cat.slug === categoryKey);
-    if (category) {
-      elTitle.textContent = category.label[currentLang];
+    if (categoryKey === 'all') {
+      elTitle.textContent = currentLang === 'ar' ? 'الكل' : 'All';
       renderSubcats(categoryKey);
+    } else {
+      const category = menuData.categories.find(cat => cat.slug === categoryKey);
+      if (category) {
+        elTitle.textContent = category.label[currentLang];
+        renderSubcats(categoryKey);
+      }
     }
   }
 
