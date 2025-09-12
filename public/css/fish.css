@@ -183,6 +183,15 @@ body {
   padding: 8px 12px; font-weight: 700; min-width: 84px; text-align: center;
 }
 
+/* AS PER WEIGHT styling */
+.price.as-per-weight {
+  background: var(--brand);
+  color: #fff;
+  font-size: 12px;
+  padding: 8px 10px;
+  min-width: 100px;
+}
+
 /* Responsive */
 @media (max-width: 720px) {
   .item {
