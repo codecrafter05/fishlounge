@@ -291,7 +291,7 @@
               <div class="item__body">
                 <h4 class="item__title">${item.name[currentLang]}</h4>
               </div>
-              <div class="item__price"><span class="price">${formatPrice(item.price, item.currency)}</span></div>
+              <div class="item__price"><span class="${getPriceClass(item.price)}">${formatPrice(item.price, item.currency)}</span></div>
             </article>
           `;
         });
@@ -320,7 +320,7 @@
         <div class="item__body">
           <h4 class="item__title">${item.name[currentLang]}</h4>
         </div>
-        <div class="item__price"><span class="price">${formatPrice(item.price, item.currency)}</span></div>
+        <div class="item__price"><span class="${getPriceClass(item.price)}">${formatPrice(item.price, item.currency)}</span></div>
       </article>
     `).join('');
   }
@@ -328,8 +328,13 @@
   // Price formatter
   function formatPrice(price, currency = 'BHD') {
     const numValue = parseFloat(price);
-    let decimalPlaces = 2;
     
+    // If price is -1 or 0, show "AS PER WEIGHT"
+    if (numValue <= 0) {
+      return currentLang === 'ar' ? 'حسب الوزن' : 'AS PER WEIGHT';
+    }
+    
+    let decimalPlaces = 2;
     if (numValue < 10) {
       decimalPlaces = 3;
     }
@@ -340,6 +345,12 @@
       minimumFractionDigits: decimalPlaces,
       maximumFractionDigits: decimalPlaces
     }).format(numValue);
+  }
+
+  // Get price class for styling
+  function getPriceClass(price) {
+    const numValue = parseFloat(price);
+    return numValue <= 0 ? 'price as-per-weight' : 'price';
   }
 
   function activateCategory(categoryKey) {
