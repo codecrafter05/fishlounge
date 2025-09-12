@@ -143,6 +143,9 @@
   // ------- Dynamic data from backend -------
   let menuData = null;
   let currentLang = 'en';
+  
+  // Default image path
+  const defaultImagePath = '{{ asset("images/fishimage.png") }}';
 
   // Load menu data from API
   async function loadMenuData() {
@@ -212,7 +215,7 @@
       story.dataset.category = category.slug;
       
       const img = document.createElement('img');
-      img.src = category.icon || 'https://images.unsplash.com/photo-1541745537413-b804d9049a36?q=80&w=200&auto=format&fit=crop';
+      img.src = category.icon || defaultImagePath;
       img.alt = category.label[currentLang];
       
       const span = document.createElement('span');
@@ -286,8 +289,8 @@
         // Add products for this category
         categoryProducts.forEach(item => {
           html += `
-            <article class="item" onclick="openModal('${item.image || 'https://images.unsplash.com/photo-1541745537413-b804d9049a36?q=80&w=800&auto=format&fit=crop'}', '${item.name[currentLang]}')">
-              <img class="item__img" src="${item.image || 'https://images.unsplash.com/photo-1541745537413-b804d9049a36?q=80&w=800&auto=format&fit=crop'}" alt="${item.name[currentLang]}">
+            <article class="item" onclick="openModal('${item.image || defaultImagePath}', '${item.name[currentLang]}')">
+              <img class="item__img" src="${item.image || defaultImagePath}" alt="${item.name[currentLang]}">
               <div class="item__body">
                 <h4 class="item__title">${item.name[currentLang]}</h4>
               </div>
@@ -315,8 +318,8 @@
     );
     
     elProducts.innerHTML = items.map(item => `
-      <article class="item" onclick="openModal('${item.image || '{{ asset('images/fishimage.png') }}'}', '${item.name[currentLang]}')">
-        <img class="item__img" src="${item.image || '{{ asset('images/fishimage.png') }}'}" alt="${item.name[currentLang]}">
+      <article class="item" onclick="openModal('${item.image || defaultImagePath}', '${item.name[currentLang]}')">
+        <img class="item__img" src="${item.image || defaultImagePath}" alt="${item.name[currentLang]}">
         <div class="item__body">
           <h4 class="item__title">${item.name[currentLang]}</h4>
         </div>
