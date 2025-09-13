@@ -39,7 +39,7 @@
 
   <!-- Favicon and Icons -->
   <link rel="icon" type="image/png" href="{{ asset('images/logo2.png') }}" />
-  <link rel="stylesheet" href="{{ asset('css/fish.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/linkTree.css') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
