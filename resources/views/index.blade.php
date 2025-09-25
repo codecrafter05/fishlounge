@@ -33,21 +33,32 @@
   <meta name="twitter:description" content="استمتع بمأكولات بحرية طازجة وأجواء عصرية مطلة على البحر في مجمّع الأفنيوز البحرين. | Fresh seafood & modern vibes at Avenues Mall Bahrain.">
   <meta name="twitter:image" content="{{ asset('images/fishlounge-og.jpg') }}">
 
-  <!-- Additional Meta Tags -->
-  <meta name="theme-color" content="#b4cbdb" />
-  <meta name="msapplication-TileColor" content="#b4cbdb" />
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#1e40af" />
+  <meta name="msapplication-TileColor" content="#1e40af" />
+  <meta name="msapplication-config" content="{{ asset('browserconfig.xml') }}" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="فيش لاونج | Fish Lounge" />
-  <meta name="application-name" content="فيش لاونج | Fish Lounge" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Fish Lounge" />
+  <meta name="application-name" content="Fish Lounge" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="msapplication-tap-highlight" content="no" />
 
   <!-- Canonical URL -->
   <link rel="canonical" href="{{ url()->current() }}" />
   
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="{{ asset('manifest.webmanifest') }}" />
+  
   <!-- Favicon and Icons -->
   <link rel="icon" type="image/png" href="{{ asset('images/logo2.png') }}" />
-  <link rel="manifest" href="{{ asset('manifest.webmanifest') }}" />
+  <link rel="apple-touch-icon" href="{{ asset('images/logo1.png') }}" />
+  <link rel="apple-touch-icon" sizes="16x16" href="{{ asset('images/logo1.png') }}" />
+  <link rel="apple-touch-icon" sizes="32x32" href="{{ asset('images/logo1.png') }}" />
+  <link rel="apple-touch-icon" sizes="192x192" href="{{ asset('images/logo2.png') }}" />
+  <link rel="apple-touch-icon" sizes="512x512" href="{{ asset('images/logo3.png') }}" />
   <link rel="stylesheet" href="{{ asset('css/fish.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/pwa.css') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -465,6 +476,91 @@
     page.style.transform = 'translateY(50px)';
     page.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
   });
+
+  // PWA Service Worker Registration
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js')
+        .then(function(registration) {
+          console.log('PWA: ServiceWorker registration successful with scope: ', registration.scope);
+          
+          // Check for updates
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New content is available, reload the page
+                if (confirm('تحديث جديد متاح! هل تريد إعادة تحميل الصفحة؟\nNew update available! Reload page?')) {
+                  window.location.reload();
+                }
+              }
+            });
+          });
+        })
+        .catch(function(err) {
+          console.log('PWA: ServiceWorker registration failed: ', err);
+        });
+    });
+  }
+
+  // PWA Install Prompt
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('PWA: Install prompt triggered');
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // Show install button
+    const installButton = document.createElement('button');
+    installButton.textContent = '📱 تثبيت التطبيق | Install App';
+    installButton.className = 'pwa-install-btn';
+    installButton.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    `;
+    
+    installButton.addEventListener('click', () => {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('PWA: User accepted the install prompt');
+        } else {
+          console.log('PWA: User dismissed the install prompt');
+        }
+        deferredPrompt = null;
+        installButton.remove();
+      });
+    });
+    
+    document.body.appendChild(installButton);
+  });
+
+  // PWA App Installed
+  window.addEventListener('appinstalled', (evt) => {
+    console.log('PWA: App was installed');
+  });
+
+  // PWA Online/Offline Status
+  function updateOnlineStatus() {
+    const status = navigator.onLine ? 'أونلاين | Online' : 'أوفلاين | Offline';
+    console.log('PWA: Connection status:', status);
+  }
+
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
 </script>
 </body>
 </html>

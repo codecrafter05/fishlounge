@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Lounge - أوفلاين | Offline</title>
+    <meta name="description" content="Fish Lounge - وضع الأوفلاين">
+    <meta name="theme-color" content="#1e40af">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="icon" href="/images/logo2.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .offline-container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .offline-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .message {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .retry-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .retry-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .features {
+            margin-top: 40px;
+            text-align: right;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .feature-icon {
+            margin-left: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .online-indicator {
+            background: rgba(34, 197, 94, 0.9);
+        }
+        
+        @media (max-width: 480px) {
+            .offline-container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="status-indicator" id="statusIndicator">
+        <span id="statusText">أوفلاين | Offline</span>
+    </div>
+    
+    <div class="offline-container">
+        <div class="logo">🐟</div>
+        
+        <h1>Fish Lounge</h1>
+        <div class="subtitle">فيش لاونج</div>
+        
+        <div class="offline-icon">📱</div>
+        
+        <div class="message">
+            <p>أنت حالياً في وضع الأوفلاين</p>
+            <p>You are currently offline</p>
+        </div>
+        
+        <a href="/" class="retry-btn" onclick="window.location.reload()">
+            إعادة المحاولة | Retry
+        </a>
+        
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">🍽️</span>
+                <span>قائمة الطعام متاحة للأوفلاين</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📱</span>
+                <span>يمكن تثبيت التطبيق على الهاتف</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⚡</span>
+                <span>سرعة في التحميل</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Check online status
+        function updateStatus() {
+            const statusIndicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            if (navigator.onLine) {
+                statusIndicator.classList.add('online-indicator');
+                statusText.textContent = 'أونلاين | Online';
+                
+                // Redirect to main page when online
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000);
+            } else {
+                statusIndicator.classList.remove('online-indicator');
+                statusText.textContent = 'أوفلاين | Offline';
+            }
+        }
+        
+        // Listen for online/offline events
+        window.addEventListener('online', updateStatus);
+        window.addEventListener('offline', updateStatus);
+        
+        // Initial status check
+        updateStatus();
+        
+        // Auto-retry every 30 seconds
+        setInterval(() => {
+            if (navigator.onLine) {
+                window.location.href = '/';
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
