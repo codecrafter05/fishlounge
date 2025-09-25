@@ -94,33 +94,18 @@
       </div>
     </header>
 
-    <!-- Categories (keep this pattern) -->
+    <!-- Categories (dynamically loaded) -->
     <section class="stories">
       <button class="stories__nav left" aria-label="Scroll left">‹</button>
       <div class="stories__track" id="storiesTrack">
-        <a href="#" class="story is-active" data-category="pizza">
-          <img src="https://images.unsplash.com/photo-1541745537413-b804d9049a36?q=80&w=200&auto=format&fit=crop" alt="Pizza">
-          <span>Pizza</span>
-        </a>
-        <a href="#" class="story" data-category="pasta">
-          <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=200&auto=format&fit=crop" alt="Pasta">
-          <span>Pasta</span>
-        </a>
-        <a href="#" class="story" data-category="salad">
-          <img src="https://images.unsplash.com/photo-1505577058444-a3dab90d4253?q=80&w=200&auto=format&fit=crop" alt="Salad">
-          <span>Salad</span>
-        </a>
-        <a href="#" class="story" data-category="drinks">
-          <img src="https://images.unsplash.com/photo-1497534446932-c925b458314e?q=80&w=200&auto=format&fit=crop" alt="Drinks">
-          <span>Drinks</span>
-        </a>
+        <!-- Categories will be loaded dynamically by JavaScript -->
       </div>
       <button class="stories__nav right" aria-label="Scroll right">›</button>
     </section>
 
     <!-- Section title -->
     <div class="section-head">
-      <h3 id="sectionTitle">Pizza</h3>
+      <h3 id="sectionTitle">Loading...</h3>
       <span class="sep"></span>
     </div>
 
@@ -204,6 +189,8 @@
     const allImg = document.createElement('img');
     allImg.src = '{{ asset("images/all.jpg") }}';
     allImg.alt = currentLang === 'ar' ? 'الكل' : 'All';
+    allImg.loading = 'lazy';
+    allImg.decoding = 'async';
     
     const allSpan = document.createElement('span');
     allSpan.textContent = currentLang === 'ar' ? 'الكل' : 'All';
@@ -228,6 +215,8 @@
       const img = document.createElement('img');
       img.src = category.icon || defaultImagePath;
       img.alt = category.label[currentLang];
+      img.loading = 'lazy';
+      img.decoding = 'async';
       
       const span = document.createElement('span');
       span.textContent = category.label[currentLang];
@@ -301,7 +290,7 @@
         categoryProducts.forEach(item => {
           html += `
             <article class="item" onclick="openModal('${item.image || defaultImagePath}', '${item.name[currentLang]}')">
-              <img class="item__img" src="${item.image || defaultImagePath}" alt="${item.name[currentLang]}">
+              <img class="item__img" src="${item.image || defaultImagePath}" alt="${item.name[currentLang]}" loading="lazy" decoding="async">
               <div class="item__body">
                 <h4 class="item__title">${item.name[currentLang]}</h4>
               </div>
@@ -330,7 +319,7 @@
     
     elProducts.innerHTML = items.map(item => `
       <article class="item" onclick="openModal('${item.image || defaultImagePath}', '${item.name[currentLang]}')">
-        <img class="item__img" src="${item.image || defaultImagePath}" alt="${item.name[currentLang]}">
+        <img class="item__img" src="${item.image || defaultImagePath}" alt="${item.name[currentLang]}" loading="lazy" decoding="async">
         <div class="item__body">
           <h4 class="item__title">${item.name[currentLang]}</h4>
         </div>
@@ -415,6 +404,42 @@
 
   // Load menu data when page loads
   loadMenuData();
+
+  // Add error handling for failed API calls
+  async function loadMenuData() {
+    try {
+      const response = await fetch('/api/menu', {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      menuData = await response.json();
+      initializeMenu();
+    } catch (error) {
+      console.error('Error loading menu data:', error);
+      
+      // Show user-friendly error message
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message';
+      errorDiv.innerHTML = `
+        <div style="text-align: center; padding: 20px; color: #e53e3e;">
+          <h3>خطأ في تحميل البيانات</h3>
+          <p>Error loading menu data. Please refresh the page.</p>
+          <button onclick="window.location.reload()" style="margin-top: 10px; padding: 10px 20px; background: #3182ce; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            إعادة تحميل | Reload
+          </button>
+        </div>
+      `;
+      
+      document.getElementById('products').appendChild(errorDiv);
+    }
+  }
 
   // Modal functionality
   const modal = document.getElementById('product-modal');

@@ -11,7 +11,25 @@ class MenuController extends Controller
 {
     public function menu(): JsonResponse
     {
-        $categories = Category::query()
+        // Add caching headers for better performance
+        $response = response()->json([
+            'categories' => $this->getCategories(),
+            'products' => $this->getProducts(),
+        ]);
+
+        // Set cache headers
+        $response->header('Cache-Control', 'public, max-age=300'); // 5 minutes cache
+        $response->header('ETag', md5(serialize([
+            'categories' => $this->getCategories(),
+            'products' => $this->getProducts(),
+        ])));
+
+        return $response;
+    }
+
+    private function getCategories()
+    {
+        return Category::query()
             ->where('is_active', true)
             ->with(['subcategories' => function ($q) {
                 $q->where('is_active', true)->orderBy('sort_order');
@@ -37,8 +55,11 @@ class MenuController extends Controller
                     })->values()->all(),
                 ];
             })->values()->all();
+    }
 
-        $products = Product::query()
+    private function getProducts()
+    {
+        return Product::query()
             ->where('is_active', true)
             ->orderBy('sort_order')
             ->with(['category', 'subcategory'])
@@ -58,11 +79,6 @@ class MenuController extends Controller
                     'subcategory' => optional($p->subcategory)->slug,
                 ];
             })->values()->all();
-
-        return response()->json([
-            'categories' => $categories,
-            'products' => $products,
-        ]);
     }
 }
 
