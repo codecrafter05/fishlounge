@@ -1,7 +1,8 @@
 // Fish Lounge PWA Service Worker
-const CACHE_NAME = 'fish-lounge-v1.0.0';
-const STATIC_CACHE = 'fish-lounge-static-v1.0.0';
-const DYNAMIC_CACHE = 'fish-lounge-dynamic-v1.0.0';
+const CACHE_VERSION = 'v1.0.1';
+const CACHE_NAME = `fish-lounge-${CACHE_VERSION}`;
+const STATIC_CACHE = `fish-lounge-static-${CACHE_VERSION}`;
+const DYNAMIC_CACHE = `fish-lounge-dynamic-${CACHE_VERSION}`;
 
 // Files to cache immediately
 const STATIC_FILES = [
@@ -75,27 +76,53 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // Handle API requests with network-first strategy
+  if (url.pathname.startsWith('/api/')) {
+    event.respondWith(
+      fetch(request)
+        .then(networkResponse => {
+          if (networkResponse.ok) {
+            const responseToCache = networkResponse.clone();
+            caches.open(DYNAMIC_CACHE)
+              .then(cache => {
+                cache.put(request, responseToCache);
+              });
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          return caches.match(request)
+            .then(cachedResponse => {
+              if (cachedResponse) {
+                console.log('Service Worker: Serving API from cache:', request.url);
+                return cachedResponse;
+              }
+              return new Response(JSON.stringify({ error: 'Offline' }), {
+                status: 503,
+                headers: { 'Content-Type': 'application/json' }
+              });
+            });
+        })
+    );
+    return;
+  }
+
+  // Handle static files with cache-first strategy
   event.respondWith(
     caches.match(request)
       .then(cachedResponse => {
-        // Return cached version if available
         if (cachedResponse) {
           console.log('Service Worker: Serving from cache:', request.url);
           return cachedResponse;
         }
 
-        // Try to fetch from network
         return fetch(request)
           .then(networkResponse => {
-            // Check if response is valid
             if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
               return networkResponse;
             }
 
-            // Clone the response
             const responseToCache = networkResponse.clone();
-
-            // Cache dynamic content
             caches.open(DYNAMIC_CACHE)
               .then(cache => {
                 cache.put(request, responseToCache);
@@ -105,14 +132,12 @@ self.addEventListener('fetch', event => {
             return networkResponse;
           })
           .catch(error => {
-            console.log('Service Worker: Network failed, serving offline page:', request.url);
+            console.log('Service Worker: Network failed:', request.url);
             
-            // If it's a navigation request, show offline page
             if (request.mode === 'navigate') {
               return caches.match('/offline.html');
             }
             
-            // For other requests, return a basic response
             return new Response('Offline content not available', {
               status: 503,
               statusText: 'Service Unavailable',
