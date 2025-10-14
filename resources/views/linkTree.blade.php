@@ -57,38 +57,94 @@
     <!-- Links -->
     <section class="links">
 
-      <!-- Location -->
-      <a class="link-card" href="https://maps.google.com/?q=Avenues+Mall+Bahrain+Fish+Lounge" target="_blank" rel="noopener">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
-        </span>
-        <span class="txt">
-          <strong>Location</strong>
-          <em>Find us at Avenues Mall Bahrain</em>
-        </span>
-      </a>
-
-      <!-- Menu -->
-      <a class="link-card" href="/" target="_blank" rel="noopener">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2Zm8 1.5V8h4.5L14 3.5ZM8 12.5h8v1.5H8v-1.5Zm0 4h8v1.5H8v-1.5Zm0-8h5V10H8V8.5Z"/></svg>
-        </span>
-        <span class="txt">
-          <strong>Menu</strong>
-          <em>View Our Seafood Menu</em>
-        </span>
-      </a>
-
       <!-- Contact -->
-      <a class="link-card" href="tel:+97312345678">
+      <a class="link-card" href="tel:+97334406650">
         <span class="icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l1.9-1.9a1.2 1.2 0 0 1 1.2-.3c1.3.4 2.6.6 4 .6.7 0 1.3.5 1.3 1.2V20c0 .7-.6 1.3-1.3 1.3A19.3 19.3 0 0 1 3 6.3C3 5.6 3.6 5 4.3 5h2.9c.7 0 1.2.6 1.2 1.3 0 1.4.2 2.7.6 4 .1.4 0 .9-.3 1.2l-1.9 1.9Z"/></svg>
         </span>
         <span class="txt">
           <strong>Contact</strong>
-          <em>+973 1234 5678</em>
+          <em>+973 3440 6650</em>
         </span>
       </a>
+
+      <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 8px 0;">
+
+      <!-- Location -->
+      <a class="link-card" href="https://maps.app.goo.gl/hrEoxyeoHsxoF98Z8" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+        </span>
+        <span class="txt">
+          <strong>Juffair, Bahrain</strong>
+          <em>Find us at Juffair</em>
+        </span>
+      </a>
+
+      <a class="link-card" href="https://maps.app.goo.gl/zUZJvJuZttayhZgv8" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+        </span>
+        <span class="txt">
+          <strong>The Avenues Bahrain</strong>
+          <em>Find us at Avenues Mall Bahrain</em>
+        </span>
+      </a>
+
+      <a class="link-card" href="https://maps.app.goo.gl/uA3L2YC9Tzx6SFjp6" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+        </span>
+        <span class="txt">
+          <strong>Tahliyah Street Al Olyaha Riyadh</strong>
+          <em>Find us at Tahliyah Street Al Olyaha Riyadh</em>
+        </span>
+      </a>
+
+      <a class="link-card" href="https://maps.app.goo.gl/rnLCpXY97D5VKDYs7" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+        </span>
+        <span class="txt">
+          <strong>Al Khobar, Ajdan Walk </strong>
+          <em>Find us at Al Khobar, Ajdan Walk</em>
+        </span>
+      </a>
+
+      <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 8px 0;">
+
+      <!-- Menu -->
+      <a class="link-card" href="https://fishlounge.site" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2Zm8 1.5V8h4.5L14 3.5ZM8 12.5h8v1.5H8v-1.5Zm0 4h8v1.5H8v-1.5Zm0-8h5V10H8V8.5Z"/></svg>
+        </span>
+        <span class="txt">
+          <strong>Bahrain, Menu</strong>
+          <em>View Our Seafood Menu</em>
+        </span>
+      </a>
+
+      <!-- <a class="link-card" href="https://oddmenu.com/ar/p/menu-11?fbclid=PAZXh0bgNhZW0CMTEAAaZjMRQXtjIduOYUdVCmLmNT8v3EBDuc5SP-ZPP2fx2PilAXMpaWN_0WV94_aem_CR8Zj28xIb5rjbJq80VeoA" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2Zm8 1.5V8h4.5L14 3.5ZM8 12.5h8v1.5H8v-1.5Zm0 4h8v1.5H8v-1.5Zm0-8h5V10H8V8.5Z"/></svg>
+        </span>
+        <span class="txt">
+          <strong>Riyadh, Menu</strong>
+          <em>View Our Seafood Menu</em>
+        </span>
+      </a> -->
+      
+      <!-- <a class="link-card" href="https://oddmenu.com/ar/p/menu-11?fbclid=PAZXh0bgNhZW0CMTEAAaZjMRQXtjIduOYUdVCmLmNT8v3EBDuc5SP-ZPP2fx2PilAXMpaWN_0WV94_aem_CR8Zj28xIb5rjbJq80VeoA" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2Zm8 1.5V8h4.5L14 3.5ZM8 12.5h8v1.5H8v-1.5Zm0 4h8v1.5H8v-1.5Zm0-8h5V10H8V8.5Z"/></svg>
+        </span>
+        <span class="txt">
+          <strong>Al Khobar, Menu</strong>
+          <em>View Our Seafood Menu</em>
+        </span>
+      </a> -->
+
+      <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 8px 0;">
 
       <!-- Instagram -->
       <a class="link-card" href="https://instagram.com/fishloungebh" target="_blank" rel="noopener">
@@ -102,7 +158,7 @@
       </a>
 
       <!-- TikTok -->
-      <a class="link-card" href="https://www.tiktok.com/@fishloungebh" target="_blank" rel="noopener">
+      <a class="link-card" href="https://www.tiktok.com/@fishlounge.restaurant" target="_blank" rel="noopener">
         <span class="icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M16.5 2a6.5 6.5 0 0 0 5.5 3.1v3.1a9.3 9.3 0 0 1-5.5-1.8v8.6a6.5 6.5 0 1 1-6.5-6.5c.3 0 .6 0 .9.1v3.2a3.4 3.4 0 1 0 2.6 3.3V2h3Z"/></svg>
         </span>
@@ -113,7 +169,7 @@
       </a>
         
       <!-- Google Reviews -->
-      <a class="link-card" href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK" target="_blank" rel="noopener">
+      <!-- <a class="link-card" href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK" target="_blank" rel="noopener">
         <span class="icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.7 1.1 6.5L12 17.8l-5.8 3.1 1.1-6.5-4.8-4.7 6.6-.9L12 2.5Z"/></svg>
         </span>
@@ -121,7 +177,7 @@
           <strong>Leave a Review</strong>
           <em>Share your experience</em>
         </span>
-      </a>
+      </a> -->
        
     </section>
 
