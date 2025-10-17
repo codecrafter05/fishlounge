@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Primary Meta Tags -->
-  <title>فيش لاونج | Fish Lounge </title>
+  <title>فيش لاونج - بيك أب | Fish Lounge - Pickup Menu</title>
   <link rel="canonical" href="{{ url()->current() }}"/>
-  <meta name="title" content="فيش لاونج | Fish Lounge – أفضل المأكولات البحرية في مجمّع الأفنيوز البحرين">
+  <meta name="title" content="فيش لاونج - بيك أب | Fish Lounge - Pickup Menu">
   <meta name="description" content="تذوّق أشهى المأكولات البحرية الطازجة في فيش لاونج – مجمّع الأفنيوز البحرين. أسماك مشوية، روبيان، سلطات بحرية، سوب بحري، وأطباق بلاتر مشاركة. أجواء عصرية مطلة على البحر. | Enjoy fresh seafood at Fish Lounge – Avenues Mall Bahrain: grilled fish, shrimp, seafood salads & soups, shared platters, and a modern seaside vibe.">
   <meta name="keywords" content="فيش لاونج, مطعم بحري, مأكولات بحرية, أسماك, روبيان, سلطعون, بلاتر بحري, مجمّع الأفنيوز, الأفنيوز البحرين, المنامة, مطاعم البحرين, Fish Lounge, seafood restaurant, grilled fish, shrimp, crab, seafood platter, Avenues Mall Bahrain, Manama restaurants">
   <meta name="author" content="Fish Lounge | فيش لاونج">
@@ -143,10 +143,10 @@
   // Default image path
   const defaultImagePath = '{{ asset("images/fishimage.png") }}';
 
-  // Load menu data from API
+  // Load menu data from API (pickup menu)
   async function loadMenuData() {
     try {
-      const response = await fetch('/api/menu');
+      const response = await fetch('/api/menu-pickup');
       menuData = await response.json();
       initializeMenu();
     } catch (error) {
@@ -408,7 +408,7 @@
   // Add error handling for failed API calls
   async function loadMenuData() {
     try {
-      const response = await fetch('/api/menu', {
+      const response = await fetch('/api/menu-pickup', {
         headers: {
           'Cache-Control': 'no-cache',
           'Pragma': 'no-cache'

@@ -41,6 +41,12 @@ class CategoryResource extends Resource
                     ->imageEditor()
                     ->required(false),
                 Toggle::make('is_active')->label('Active')->default(true),
+                TextInput::make('pickup_sort_order')
+                    ->label('Pickup Sort Order / ترتيب البيك أب')
+                    ->numeric()
+                    ->minValue(0)
+                    ->placeholder('Optional')
+                    ->helperText('Different sort order for pickup menu'),
             ]);
     }
 
@@ -53,6 +59,8 @@ class CategoryResource extends Resource
                 ImageColumn::make('icon_path')->label('Icon')->disk('public'),
                 TextColumn::make('label_en')->label('EN')->searchable()->sortable(),
                 TextColumn::make('label_ar')->label('AR')->searchable()->sortable(),
+                TextColumn::make('sort_order')->label('Order')->sortable()->badge()->color('primary'),
+                TextColumn::make('pickup_sort_order')->label('Pickup Order')->sortable()->badge()->color('success')->placeholder('-'),
                 TextColumn::make('slug')->label('Slug')->toggleable(isToggledHiddenByDefault: true),
                 IconColumn::make('is_active')->boolean()->label('Active')->sortable(),
             ])

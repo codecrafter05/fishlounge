@@ -27,16 +27,55 @@ class MenuController extends Controller
         return $response;
     }
 
-    private function getCategories()
+    public function pickupMenu(): JsonResponse
     {
-        return Category::query()
+        // Add caching headers for better performance
+        $response = response()->json([
+            'categories' => $this->getCategories(true),
+            'products' => $this->getProducts(true),
+        ]);
+
+        // Set cache headers
+        $response->header('Cache-Control', 'public, max-age=300'); // 5 minutes cache
+        $response->header('ETag', md5(serialize([
+            'categories' => $this->getCategories(true),
+            'products' => $this->getProducts(true),
+        ])));
+
+        return $response;
+    }
+
+    private function getCategories($isPickup = false)
+    {
+        $sortColumn = $isPickup ? 'pickup_sort_order' : 'sort_order';
+        
+        $categories = Category::query()
             ->where('is_active', true)
-            ->with(['subcategories' => function ($q) {
-                $q->where('is_active', true)->orderBy('sort_order');
+            ->with(['subcategories' => function ($q) use ($isPickup) {
+                $subSortColumn = $isPickup ? 'pickup_sort_order' : 'sort_order';
+                $q->where('is_active', true)
+                    ->orderByRaw("COALESCE({$subSortColumn}, sort_order)");
             }])
-            ->orderBy('sort_order')
-            ->get()
-            ->map(function (Category $cat) {
+            ->orderByRaw("COALESCE({$sortColumn}, sort_order)")
+            ->get();
+        
+        // If pickup menu, filter categories that have pickup products
+        if ($isPickup) {
+            $categories = $categories->filter(function (Category $cat) {
+                return $cat->products()->where('is_active', true)->where('is_pickup', true)->exists();
+            });
+        }
+        
+        return $categories->map(function (Category $cat) use ($isPickup) {
+                $subcategories = $cat->subcategories;
+                
+                // If pickup menu, filter subcategories that have pickup products
+                if ($isPickup) {
+                    $subcategories = $subcategories->filter(function ($sub) {
+                        return $sub->products()->where('is_active', true)->where('is_pickup', true)->exists();
+                    });
+                }
+                
                 return [
                     'slug' => $cat->slug,
                     'label' => [
@@ -44,7 +83,7 @@ class MenuController extends Controller
                         'ar' => $cat->label_ar,
                     ],
                     'icon' => $cat->icon_path ? Storage::url($cat->icon_path) : null,
-                    'subcategories' => $cat->subcategories->map(function ($sub) {
+                    'subcategories' => $subcategories->map(function ($sub) {
                         return [
                             'slug' => $sub->slug,
                             'label' => [
@@ -57,11 +96,20 @@ class MenuController extends Controller
             })->values()->all();
     }
 
-    private function getProducts()
+    private function getProducts($isPickup = false)
     {
-        return Product::query()
-            ->where('is_active', true)
-            ->orderBy('sort_order')
+        $query = Product::query()->where('is_active', true);
+        
+        // If pickup menu, only show products with is_pickup = true
+        if ($isPickup) {
+            $query->where('is_pickup', true);
+        }
+        
+        // Use pickup_sort_order if available, otherwise fall back to sort_order
+        $sortColumn = $isPickup ? 'pickup_sort_order' : 'sort_order';
+        $query->orderByRaw("COALESCE({$sortColumn}, sort_order)");
+        
+        return $query
             ->with(['category', 'subcategory'])
             ->get()
             ->map(function (Product $p) {

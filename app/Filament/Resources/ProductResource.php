@@ -53,7 +53,7 @@ class ProductResource extends Resource
                 TextInput::make('price')->label('Price')->numeric()->required()->step('0.001')->minValue(0),
                 TextInput::make('price_two')->label('Price Two')->numeric()->step('0.001')->minValue(0)->placeholder('Optional - Leave empty if single price'),
                 TextInput::make('price_three')->label('Price Three')->numeric()->step('0.001')->minValue(0)->placeholder('Optional - Leave empty if single price'),
-                TextInput::make('currency')->label('Currency')->default('BHD')->disabled(),
+                TextInput::make('currency')->label('Currency')->default('BHD')->disabled()->dehydrated(true),
                 FileUpload::make('image_path')
                     ->label('Image')
                     ->image()
@@ -61,6 +61,13 @@ class ProductResource extends Resource
                     ->directory('products/images')
                     ->imageEditor(),
                 Toggle::make('is_active')->label('Active')->default(true),
+                Toggle::make('is_pickup')->label('Available for Pickup / متاح للبيك أب')->default(false)->helperText('Enable this to show the product in the pickup menu'),
+                TextInput::make('pickup_sort_order')
+                    ->label('Pickup Sort Order / ترتيب البيك أب')
+                    ->numeric()
+                    ->minValue(0)
+                    ->placeholder('Optional')
+                    ->helperText('Different sort order for pickup menu'),
             ]);
     }
 
@@ -82,6 +89,9 @@ class ProductResource extends Resource
                     return implode(' / ', array_map(fn($p) => number_format($p, 3), $prices)) . ' BHD';
                 })->sortable(),
                 IconColumn::make('is_active')->boolean()->label('Active')->sortable(),
+                IconColumn::make('is_pickup')->boolean()->label('Pickup')->sortable(),
+                TextColumn::make('sort_order')->label('Order')->sortable()->badge()->color('primary')->toggleable(),
+                TextColumn::make('pickup_sort_order')->label('Pickup Order')->sortable()->badge()->color('success')->placeholder('-'),
             ])
             ->filters([
                 //

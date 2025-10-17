@@ -9,7 +9,12 @@ use Illuminate\Support\Str;
 class Category extends Model
 {
     protected $fillable = [
-        'slug', 'label_en', 'label_ar', 'icon_path', 'sort_order', 'is_active',
+        'slug', 'label_en', 'label_ar', 'icon_path', 'sort_order', 'pickup_sort_order', 'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+        'pickup_sort_order' => 'integer',
     ];
 
     public function subcategories(): HasMany

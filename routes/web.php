@@ -13,6 +13,11 @@ Route::get('/fish', function () {
 
 // Public menu API
 Route::get('/api/menu', [MenuController::class, 'menu']);
+Route::get('/api/menu-pickup', [MenuController::class, 'pickupMenu']);
+
+Route::get('/pickup', function () {
+    return view('pickup');
+});
 
 Route::get('/links', function () {
     return view('linkTree');

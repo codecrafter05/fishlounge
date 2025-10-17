@@ -1,5 +1,5 @@
 // Fish Lounge PWA Service Worker
-const CACHE_VERSION = 'v1.0.1';
+const CACHE_VERSION = 'v1.0.2';
 const CACHE_NAME = `fish-lounge-${CACHE_VERSION}`;
 const STATIC_CACHE = `fish-lounge-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `fish-lounge-dynamic-${CACHE_VERSION}`;
@@ -73,6 +73,11 @@ self.addEventListener('fetch', event => {
 
   // Skip external requests
   if (url.origin !== location.origin) {
+    return;
+  }
+
+  // Skip admin panel requests (Filament)
+  if (url.pathname.startsWith('/admin') || url.pathname.startsWith('/livewire')) {
     return;
   }
 

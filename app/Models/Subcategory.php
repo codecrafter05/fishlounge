@@ -10,7 +10,12 @@ use Illuminate\Support\Str;
 class Subcategory extends Model
 {
     protected $fillable = [
-        'category_id', 'slug', 'label_en', 'label_ar', 'sort_order', 'is_active',
+        'category_id', 'slug', 'label_en', 'label_ar', 'sort_order', 'pickup_sort_order', 'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+        'pickup_sort_order' => 'integer',
     ];
 
     public function category(): BelongsTo
