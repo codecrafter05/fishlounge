@@ -70,6 +70,19 @@
 
       <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 8px 0;">
 
+      <!-- Menu -->
+      <a class="link-card" href="https://fishlounge.site" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2Zm8 1.5V8h4.5L14 3.5ZM8 12.5h8v1.5H8v-1.5Zm0 4h8v1.5H8v-1.5Zm0-8h5V10H8V8.5Z"/></svg>
+        </span>
+        <span class="txt">
+          <strong>Bahrain, Menu</strong>
+          <em>View Our Seafood Menu</em>
+        </span>
+      </a>
+      
+      <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 8px 0;">
+
       <!-- Location -->
       <a class="link-card" href="https://maps.app.goo.gl/hrEoxyeoHsxoF98Z8" target="_blank" rel="noopener">
         <span class="icon" aria-hidden="true">
@@ -113,39 +126,6 @@
 
       <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 8px 0;">
 
-      <!-- Menu -->
-      <a class="link-card" href="https://fishlounge.site" target="_blank" rel="noopener">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2Zm8 1.5V8h4.5L14 3.5ZM8 12.5h8v1.5H8v-1.5Zm0 4h8v1.5H8v-1.5Zm0-8h5V10H8V8.5Z"/></svg>
-        </span>
-        <span class="txt">
-          <strong>Bahrain, Menu</strong>
-          <em>View Our Seafood Menu</em>
-        </span>
-      </a>
-
-      <!-- <a class="link-card" href="https://oddmenu.com/ar/p/menu-11?fbclid=PAZXh0bgNhZW0CMTEAAaZjMRQXtjIduOYUdVCmLmNT8v3EBDuc5SP-ZPP2fx2PilAXMpaWN_0WV94_aem_CR8Zj28xIb5rjbJq80VeoA" target="_blank" rel="noopener">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2Zm8 1.5V8h4.5L14 3.5ZM8 12.5h8v1.5H8v-1.5Zm0 4h8v1.5H8v-1.5Zm0-8h5V10H8V8.5Z"/></svg>
-        </span>
-        <span class="txt">
-          <strong>Riyadh, Menu</strong>
-          <em>View Our Seafood Menu</em>
-        </span>
-      </a> -->
-      
-      <!-- <a class="link-card" href="https://oddmenu.com/ar/p/menu-11?fbclid=PAZXh0bgNhZW0CMTEAAaZjMRQXtjIduOYUdVCmLmNT8v3EBDuc5SP-ZPP2fx2PilAXMpaWN_0WV94_aem_CR8Zj28xIb5rjbJq80VeoA" target="_blank" rel="noopener">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2Zm8 1.5V8h4.5L14 3.5ZM8 12.5h8v1.5H8v-1.5Zm0 4h8v1.5H8v-1.5Zm0-8h5V10H8V8.5Z"/></svg>
-        </span>
-        <span class="txt">
-          <strong>Al Khobar, Menu</strong>
-          <em>View Our Seafood Menu</em>
-        </span>
-      </a> -->
-
-      <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 8px 0;">
-
       <!-- Instagram -->
       <a class="link-card" href="https://instagram.com/fishloungebh" target="_blank" rel="noopener">
         <span class="icon" aria-hidden="true">
@@ -167,17 +147,6 @@
           <em>@fishloungebh</em>
         </span>
       </a>
-        
-      <!-- Google Reviews -->
-      <!-- <a class="link-card" href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK" target="_blank" rel="noopener">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.7 1.1 6.5L12 17.8l-5.8 3.1 1.1-6.5-4.8-4.7 6.6-.9L12 2.5Z"/></svg>
-        </span>
-        <span class="txt">
-          <strong>Leave a Review</strong>
-          <em>Share your experience</em>
-        </span>
-      </a> -->
        
     </section>
 
